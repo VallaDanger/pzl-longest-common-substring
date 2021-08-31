@@ -1,8 +1,8 @@
 package mx.chux.cs.pzl.strings;
 
-import java.util.function.Function;
+import java.util.function.UnaryOperator;
 
-public class LongestCommonSubstring implements Function<String, String> {
+public class LongestCommonSubstring implements UnaryOperator<String> {
 
     final String first;
     
