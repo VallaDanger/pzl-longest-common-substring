@@ -1,18 +1,9 @@
 pipeline { 
+
     agent { 
         label "linux" 
     }
     
-    tools { 
-        maven 'maven-3'
-        jdk 'java-11'
-    }
-    
-    environment {
-        GIT_BRANCH_REF = "${GIT_BRANCH}"
-        GIT_LOCAL_BRANCH = "${GIT_BRANCH}"
-    }
-
     options {
         sidebarLinks([
             [
@@ -23,6 +14,29 @@ pipeline {
         ])
     }
 
+    tools { 
+        maven 'maven-3'
+        jdk 'java-11'
+    }
+    
+    environment {
+        GIT_BRANCH_REF = "${GIT_BRANCH}"
+        GIT_LOCAL_BRANCH = "${GIT_BRANCH}"
+    }
+
+<<<<<<< HEAD
+    options {
+        sidebarLinks([
+            [
+				displayName: 'git-diff', 
+				iconFileName: '/userContent/gitea.svg', 
+				urlName: "${GIT_COMPARE_URL}"
+			]
+        ])
+    }
+
+=======
+>>>>>>> f653a90056dd233b5c38384da4ad8837abcdd5d7
     stages { 
         
         stage ('clone') {
@@ -37,9 +51,9 @@ pipeline {
                 echo 'Building Branch: ' + GIT_LOCAL_BRANCH
         
                 git poll: false,
-                          branch: "${GIT_LOCAL_BRANCH}",
-                          credentialsId: 'GIT_SSH',
-                          url: 'ssh://git@pi4.chux.net:3322/gerrit/pzl-longest-common-substring.git'
+                    branch: "${GIT_LOCAL_BRANCH}",
+                    credentialsId: 'GIT_SSH',
+                    url: 'ssh://git@pi4.chux.net:3322/gerrit/pzl-longest-common-substring.git'
                  
             }
                 
@@ -119,26 +133,24 @@ pipeline {
     post {
     
         success {
-            stage ('grok') {
-                build   job: 'RunArtInTest', 
-                        parameters: [
-                            [
-                                $class: 'StringParameterValue', 
-                                name: 'GROK_PROJECT', 
-                                value: 'cs-puzzles'
-                            ],
-                            [
-                                $class: 'StringParameterValue', 
-                                name: 'GIT_REPOSITORY', 
-                                value: 'pzl-longest-common-substring'
-                            ],
-                            [
-                                $class: 'StringParameterValue', 
-                                name: 'GIT_BRANCH', 
-                                value: "${GIT_LOCAL_BRANCH}"
-                            ]
+            build   job: 'RunArtInTest', 
+                    parameters: [
+                        [
+                            $class: 'StringParameterValue', 
+                            name: 'GROK_PROJECT', 
+                            value: 'cs-puzzles'
+                        ],
+                        [
+                            $class: 'StringParameterValue', 
+                            name: 'GIT_REPOSITORY', 
+                            value: 'pzl-longest-common-substring'
+                        ],
+                        [
+                            $class: 'StringParameterValue', 
+                            name: 'GIT_BRANCH', 
+                            value: "${GIT_LOCAL_BRANCH}"
                         ]
-                }
+                    ]
         }
 
     }
