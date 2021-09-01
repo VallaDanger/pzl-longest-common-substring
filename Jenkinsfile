@@ -50,7 +50,7 @@ pipeline {
                         spotbugsPublisher(disabled: true)
                     ]
                 ){
-                    sh "mvn -e -ntp clean verify"
+                    sh "mvn -e -ntp -B -U clean verify"
                 }
             }
         }
@@ -71,7 +71,7 @@ pipeline {
                             spotbugsPublisher(disabled: true)
                         ]
                     ){
-                        sh "mvn -e -ntp sonar:sonar"
+                        sh "mvn -e -ntp -B -U sonar:sonar"
                     }
                 }
             }
@@ -100,7 +100,7 @@ pipeline {
                         spotbugsPublisher(disabled: true)
                     ]
                 ){
-                    sh "mvn -e -ntp -DskipTests=true -Dmaven.skip.test=true clean deploy"
+                    sh "mvn -e -ntp -DskipTests=true -Dmaven.skip.test=true -B -U clean deploy"
                 }
             }
         }
