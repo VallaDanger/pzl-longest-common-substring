@@ -1,18 +1,9 @@
 pipeline { 
+
     agent { 
         label "linux" 
     }
     
-    tools { 
-        maven 'maven-3'
-        jdk 'java-11'
-    }
-    
-    environment {
-        GIT_BRANCH_REF = "${GIT_BRANCH}"
-        GIT_LOCAL_BRANCH = "${GIT_BRANCH}"
-    }
-
     options {
         sidebarLinks([
             [
@@ -21,6 +12,16 @@ pipeline {
 				urlName: "${GIT_COMPARE_URL}"
 			]
         ])
+    }
+
+    tools { 
+        maven 'maven-3'
+        jdk 'java-11'
+    }
+    
+    environment {
+        GIT_BRANCH_REF = "${GIT_BRANCH}"
+        GIT_LOCAL_BRANCH = "${GIT_BRANCH}"
     }
 
     stages { 
