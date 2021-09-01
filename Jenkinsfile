@@ -110,7 +110,7 @@ pipeline {
     post {
     
         success {
-            build   job: 'RunArtInTest', 
+            build   job: '/CHUX/update-grok', 
                     parameters: [
                         [
                             $class: 'StringParameterValue', 
