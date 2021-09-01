@@ -38,9 +38,9 @@ pipeline {
                 echo 'Building Branch: ' + GIT_LOCAL_BRANCH
         
                 git poll: false,
-                          branch: "${GIT_LOCAL_BRANCH}",
-                          credentialsId: 'GIT_SSH',
-                          url: 'ssh://git@pi4.chux.net:3322/gerrit/pzl-longest-common-substring.git'
+                    branch: "${GIT_LOCAL_BRANCH}",
+                    credentialsId: 'GIT_SSH',
+                    url: 'ssh://git@pi4.chux.net:3322/gerrit/pzl-longest-common-substring.git'
                  
             }
                 
@@ -116,4 +116,26 @@ pipeline {
         }
 
     }
+
+    post {
+    
+        success {
+                build job: '/CHUX/update-grok',
+                      wait: false,
+                      parameters: [
+                        [
+                            $class: 'StringParameterValue', 
+                            name: 'GROK_PROJECT', 
+                            value: 'cs-puzzles'
+                        ],
+                        [
+                            $class: 'StringParameterValue', 
+                            name: 'GROK_REPOSITORY', 
+                            value: 'pzl-longest-common-substring'
+                        ]
+                      ]
+        }
+
+    }
+
 }
