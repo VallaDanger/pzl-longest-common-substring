@@ -3,16 +3,6 @@ pipeline {
     agent { 
         label "linux" 
     }
-    
-    options {
-        sidebarLinks([
-            [
-				displayName: 'git-diff', 
-				iconFileName: '/userContent/gitea.svg', 
-				urlName: "${GIT_COMPARE_URL}"
-			]
-        ])
-    }
 
     tools { 
         maven 'maven-3'
@@ -24,19 +14,6 @@ pipeline {
         GIT_LOCAL_BRANCH = "${GIT_BRANCH}"
     }
 
-<<<<<<< HEAD
-    options {
-        sidebarLinks([
-            [
-				displayName: 'git-diff', 
-				iconFileName: '/userContent/gitea.svg', 
-				urlName: "${GIT_COMPARE_URL}"
-			]
-        ])
-    }
-
-=======
->>>>>>> f653a90056dd233b5c38384da4ad8837abcdd5d7
     stages { 
         
         stage ('clone') {
