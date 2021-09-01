@@ -12,7 +12,17 @@ pipeline {
         GIT_BRANCH_REF = "${GIT_BRANCH}"
         GIT_LOCAL_BRANCH = "${GIT_BRANCH}"
     }
-    
+
+    options {
+        sidebarLinks([
+            [
+				displayName: 'git-diff', 
+				iconFileName: '/userContent/gitea.svg', 
+				urlName: "${GIT_COMPARE_URL}"
+			]
+        ])
+    }
+
     stages { 
         
         stage ('clone') {
@@ -105,4 +115,32 @@ pipeline {
         }
 
     }
+
+    post {
+    
+        success {
+            stage ('grok') {
+                build   job: 'RunArtInTest', 
+                        parameters: [
+                            [
+                                $class: 'StringParameterValue', 
+                                name: 'GROK_PROJECT', 
+                                value: 'cs-puzzles'
+                            ],
+                            [
+                                $class: 'StringParameterValue', 
+                                name: 'GIT_REPOSITORY', 
+                                value: 'pzl-longest-common-substring'
+                            ],
+                            [
+                                $class: 'StringParameterValue', 
+                                name: 'GIT_BRANCH', 
+                                value: "${GIT_LOCAL_BRANCH}"
+                            ]
+                        ]
+                }
+        }
+
+    }
+
 }
