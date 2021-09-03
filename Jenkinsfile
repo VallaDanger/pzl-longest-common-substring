@@ -128,6 +128,24 @@ pipeline {
                             value: "${GIT_LOCAL_BRANCH}"
                         ]
                     ]
+            build   job: '/CHUX/update-code', 
+                    parameters: [
+                        [
+                            $class: 'StringParameterValue', 
+                            name: 'CODE_PROJECT', 
+                            value: 'compsci/puzzles'
+                        ],
+                        [
+                            $class: 'StringParameterValue', 
+                            name: 'GIT_REPOSITORY', 
+                            value: 'pzl-longest-common-substring'
+                        ],
+                        [
+                            $class: 'StringParameterValue', 
+                            name: 'GIT_BRANCH', 
+                            value: "${GIT_LOCAL_BRANCH}"
+                        ]
+                    ]
         }
 
     }
